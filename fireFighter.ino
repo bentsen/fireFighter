@@ -8,6 +8,15 @@ const int waterPump = D5;
 
 void setup() {
   pinMode(waterPump, OUTPUT);
+  pinMode(pwnMotorA, OUTPUT);
+  pinMode(pwmMotorB, OUTPUT);
+  pinMode(dirMotorA, OUTPUT);
+  pinMode(dirMotorB, OUTPUT);
+  pinMode(flameSensor, INPUT);
+}
+
+void handle_fire() {
+  digitialWrite()
 }
 
 void loop() {
