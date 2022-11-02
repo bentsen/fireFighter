@@ -1,26 +1,26 @@
-const int flameSensor = D0;
+const int flame_sensor = D0;
 const int pwmMotorA = D1;
 const int pwmMotorB = D2;
 const int dirMotorA = D3;
 const int dirMotorB = D4;
 const int waterPump = D5;
 bool fire = false;
-int Flame = HIGH;
+int flame_detected;
 int motorSpeed = 500;
 
 void setup() {
+  Serial.begin(9600);
   pinMode(waterPump, OUTPUT);
   pinMode(pwmMotorA, OUTPUT);
   pinMode(pwmMotorB, OUTPUT);
   pinMode(dirMotorA, OUTPUT);
   pinMode(dirMotorB, OUTPUT);
-  pinMode(flameSensor, INPUT);
+  pinMode(flame_sensor, INPUT);
   pinMode(LED_BUILTIN, OUTPUT);
-
-  Serial.begin(9600);
 }
 
 void handle_fire() {
+  Serial.println("der sprøjtes");
   delay(500);
   digitalWrite(pwmMotorA, 0);
   digitalWrite(pwmMotorB, 0);
@@ -33,25 +33,27 @@ void handle_fire() {
   delay(2000);
   digitalWrite(waterPump, HIGH);
 
-  fire == false;
+  fire = false;
 }
 
 void loop() {
-  Flame = digitalRead(flameSensor);
+  flame_detected = digitalRead(flame_sensor);
 
-  if(Flame == LOW) {
+  if(flame_detected == 0) {
+    Serial.println("der er ild bitches");
     digitalWrite(pwmMotorA, motorSpeed);
     digitalWrite(pwmMotorB, motorSpeed);
     digitalWrite(dirMotorA, LOW);
-    digitalWrite(dirMotorB, LOW);  
-    fire == true;
-  }
+    digitalWrite(dirMotorB, LOW);
+    fire = true;
+  }  
   else{
+    Serial.println("der er ikke ild");
     digitalWrite(pwmMotorA, 0);
     digitalWrite(pwmMotorB, 0);
     digitalWrite(dirMotorA, HIGH);
     digitalWrite(dirMotorB, HIGH);
-    fire == false;
+    fire = false;
   }
 
   delay(300);
