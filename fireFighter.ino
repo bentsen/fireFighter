@@ -29,14 +29,16 @@ void handle_fire() {
 
   //kør pumpe
   delay(500);
-  digitalWrite (waterPump, LOW);
+  digitalWrite (waterPump, HIGH);
   delay(2000);
-  digitalWrite(waterPump, HIGH);
+  digitalWrite(waterPump, LOW);
 
   fire = false;
+  delay(5000);
 }
 
 void loop() {
+  Serial.println(fire);
   flame_detected = digitalRead(flame_sensor);
 
   if(flame_detected == 0) {
@@ -47,7 +49,7 @@ void loop() {
     digitalWrite(dirMotorB, LOW);
     fire = true;
   }  
-  else{
+  else if(flame_detected == 1){
     Serial.println("der er ikke ild");
     digitalWrite(pwmMotorA, 0);
     digitalWrite(pwmMotorB, 0);
