@@ -58,7 +58,7 @@ void loop() {
     fire = false;
   }
 
-  delay(300);
+  delay(1000);
   while(fire == true){
      handle_fire();
   }
